@@ -6,7 +6,6 @@
 	<title>Custom Collapse Title in Layout - jQuery EasyUI Demo</title>
 	<link rel="stylesheet" type="text/css" href="../js/jquery-easyui-1.4.5/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../js/jquery-easyui-1.4.5/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.4.5/demo.css">
 	<script type="text/javascript" src="../js/jquery-easyui-1.4.5/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
 </head>
@@ -18,11 +17,20 @@
 
 		</div>
 		<div data-options="region:'west',split:true,hideCollapsedContent:false"  style="width:300px;">	
-			<ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true,checkbox:true">
-				
-					</ul>
-				</li>
-			</ul>
+			<ul id="tt2" class="easyui-tree" data-options="
+				url: 'tree_data1.json',
+				method: 'get',
+				animate: true,
+				onContextMenu: function(e,node){
+					e.preventDefault();
+					$(this).tree('select',node.target);
+					$('#mm').menu('show',{
+						left: e.pageX,
+						top: e.pageY
+					});
+				}
+			"></ul>
+			
 		</div>
 		
 		
@@ -72,7 +80,7 @@
 				$('#tt').tabs('close', index);
 			}
 		}
-		$(function(){
+	/* 	$(function(){
 			
 		    $("#tt2").click(function(e){  
 		        $('#menu').menu('show', {
@@ -80,37 +88,26 @@
 		            top: e.pageY
 		        });
 		    });
-		});
+		}); */
+	function showMenuframe(){
+			
+		}
+		
+	
+	
 		
 		
-	
-		function getSelected(){
-			var node = $('#tt2').tree('getSelected');
-			if (node){
-				var s = node.text;
-				if (node.attributes){
-					s += ","+node.attributes.p1+","+node.attributes.p2;
-				}
-				alert(s);
-			}
-			}
 		
-		var tree = new dhtmlXTreeObject("treeboxbox_tree0", "100%", "100%", 0);
-		tree.setSkin('dhx_skyblue');
-		tree.setImagePath("dhtmlxtreeCodebase/imgs/csh_yellowbooks/");
-		var a= new String(["<%=session.getAttribute("role")%>"])
-		var xmlurl="dhtmlxtreeCommon/"+a+".xml";
-	
-		var tree2 = new dhtmlXTreeObject("treeboxbox_tree2", "100%", "100%", 0);
-		tree2.setSkin('dhx_skyblue');
-		tree2.setImagePath("dhtmlxtreeCodebase/imgs/csh_yellowbooks/");
-		var xmlurl="inventory/inventory.xml";
-	
-		tree2.loadXML(xmlurl);
-	
+		
 	</script>
 	
-	
+	<div id="mm" class="easyui-menu" style="width:120px;">
+		<div onclick="append()" data-options="iconCls:'icon-add'">新建</div>
+		<div onclick="removeit()" data-options="iconCls:'icon-remove'">删除</div>
+		<div class="menu-sep"></div>
+		<div onclick="expand()">Expand</div>
+		<div onclick="collapse()">Collapse</div>
+	</div>
 	
 <div id="menu" class="easyui-menu" style="width:150px;">
     <div id="m-refresh">刷新</div>

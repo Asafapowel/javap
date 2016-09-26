@@ -12,9 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
+@Table(name = "menu")
 public class Menu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +30,11 @@ public class Menu {
 	private HashMap attributes;
 	private Long parentId;
 	private HashSet<Menu> chidren;
+	
+	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -76,7 +84,7 @@ public class Menu {
 		this.parentId = parentId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_child")
 	public HashSet<Menu> getChidren() {
 		return chidren;
