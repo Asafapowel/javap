@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="../js/jquery-easyui-1.4.5/themes/icon.css">
 	<script type="text/javascript" src="../js/jquery-easyui-1.4.5/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+	<style> 
+  .black_overlay{  display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;  background-color: black;  z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }  .white_content {  display: none;  position: absolute;  top: 25%;  left: 25%;  width: 50%;  height: 50%;  padding: 16px;  border: 16px solid orange;  background-color: white;  z-index:1002;  overflow: auto;  }  </style> 
 </head>
 <body>
 	
@@ -45,10 +47,17 @@
 				" title="east" style="width:10%;"></div>
 		<div data-options="region:'center'">
 			
-			
+			<p>可以根据自己要求修改css样式<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">点击这里打开窗口</a></p> 
+<div id="light" class="white_content"> 
+    This is the lightbox content. 
+    <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'"> 
+    Close</a></div> 
+<div id="fade" class="black_overlay"> 
+</div> 
 			
 			
 	<div id="tt" class="easyui-tabs" data-options="tools:'#tab-tools'" style="width:100%;height:100%">
+	
 	</div>
 	
 	
