@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='GBK'?>
+<tree id="0">
+	<item text="发起任务" id="fqrw" open="0" call="1" select="0">
+		<item text="请假" id="leave"></item>
+		<item text="报销单" id="expenseAccount"></item>
+	 </item>	
+	 <item text="待办任务" id="dbrw" open="1" call="1" select="0">
+	 </item>    
+	 <item text="完成的任务" id="wcrw" open="1" call="1" select="0">
+	 </item> 
+</tree> 

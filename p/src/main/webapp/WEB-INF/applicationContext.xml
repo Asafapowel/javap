@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+  http://www.springframework.org/schema/context   
+   http://www.springframework.org/schema/context/spring-context-2.5.xsd
+">
+	<context:component-scan base-package="com"></context:component-scan>
+	<!-- dbcp 所用到的jar包。spring-framework-2.5.6-with-dependencies\spring-framework-2.5.6\lib\jakarta-commons 
+		commons-dbcp.jar commons-pool.jar -->
+	<!-- ***********************公共部分******************************** -->
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/springmvc"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1234"></property>
+	</bean>
+
+	<context:component-scan base-package="easyFrame" />
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="ds"></property>
+		<!-- spring 管理 sessionFactory 时， hibernate. 不能省略。 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:/easyFrame/model</value>
+			</list>
+		</property>
+		<property name="packagesToScan">
+			<value>easyFrame</value>
+		</property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+  <property name="sessionFactory" ref="sessionFactory" />
+</bean>
+<tx:annotation-driven proxy-target-class="true" transaction-manager="txManager" />
+<tx:advice id="TestAdvice" transaction-manager="txManager">
+    <tx:attributes>
+      <tx:method name="save*" propagation="REQUIRED"/>
+      <tx:method name="del*" propagation="REQUIRED"/>
+      <tx:method name="update*" propagation="REQUIRED"/>
+      <tx:method name="add*" propagation="REQUIRED"/>
+      <tx:method name="find*" propagation="REQUIRED"/>
+      <tx:method name="get*" propagation="REQUIRED"/>
+      <tx:method name="apply*" propagation="REQUIRED"/>
+    </tx:attributes>
+</tx:advice>
+
+ <aop:config>
+<aop:pointcut id="allTestServiceMethod" expression="execution(* easyFrame.service.*.*(..))"/>
+<aop:advisor pointcut-ref="allTestServiceMethod" advice-ref="TestAdvice" />
+</aop:config> 
+</beans>
+
+

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='GBK'?>
+<tree id="0">
+	<item text="组织机构" id="zzqx" open="1" call="1" select="0">
+		<item text="用户管理" id="yhgl">
+			<action name="removeUser"></action>
+		    <action name="addUser"></action>
+	   </item>
+		<item text="组织管理" id="zzgl">
+		<action name="addOrg"></action>
+	    <action name="deleteOrg"></action>
+		 <action name="distributionEmp"></action>
+		</item>
+		<item text="角色管理" id="jsgl">
+	          <action name="addRole"></action>
+		</item>
+		
+		<item text="按角色授权" id="ajssq"></item>
+		   <action name="privilege"></action>
+	</item>
+	<item text="权限管理" id="qxgl">
+	</item>
+	<item text="任务管理" id="rwgl">
+	</item>
+</tree> 

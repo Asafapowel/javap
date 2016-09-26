@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='GBK'?>
+<tree id="0">
+	<item text="组织权限" id="zzqx" open="1" call="1" select="0">
+	<item text="组织管理" id="zzgl"></item>
+	<item text="角色管理" id="jsgl"></item>
+	<item text="按组织授权" id="azzsq"></item>
+	</item>
+</tree> 
